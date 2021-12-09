@@ -2,6 +2,7 @@ package com.aulas.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -59,6 +60,115 @@ public class ContatoDAO {
 	public ArrayList<ContatoBean> getContatos(){
 		
 		String sql = "select * from contatos";
+		
+		try {
+			
+			ArrayList<ContatoBean> contatos = 
+					new ArrayList<ContatoBean>();
+			
+			PreparedStatement stmt = this.conn.prepareStatement(sql);
+			
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			while(rs.next()) {
+				
+				ContatoBean contatoBean = new ContatoBean();
+				contatoBean.setId(rs.getInt("id"));
+				contatoBean.setNome(rs.getString("nome"));
+				contatoBean.setTelefone(rs.getString("telefone"));
+				contatoBean.setEmail(rs.getString("email"));
+				
+				contatos.add(contatoBean);
+				
+			}
+			
+			rs.close();
+			stmt.close();
+			
+			return contatos;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+			return null;
+		}
+		
+		
+		
+	}
+	
+	public ContatoBean getContato(int id) {
+		
+		String sql = "select * from contatos where id = ?";
+		
+		try {
+			
+			ContatoBean contato = new ContatoBean();
+			PreparedStatement stmt = this.conn.prepareStatement(sql);
+			
+			stmt.setInt(1, id);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				contato.setId(rs.getInt("id"));
+				contato.setNome(rs.getString("nome"));
+				contato.setTelefone(rs.getString("telefone"));
+				contato.setEmail(rs.getString("email"));
+			}
+			
+			rs.close();
+			stmt.close();
+			return contato;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+			return null;
+		}
+	}
+	
+	public void atualiza(ContatoBean contatoBean) {
+		
+		String sql = "update contatos set nome=?, telefone=?, "+
+		"email=? where id=?";
+		
+		try {
+			PreparedStatement stmt = this.conn.prepareStatement(sql);
+			
+			stmt.setString(1, contatoBean.getNome());
+			stmt.setString(2, contatoBean.getTelefone());
+			stmt.setString(3, contatoBean.getEmail());
+			
+			stmt.setInt(4, contatoBean.getId());
+			
+			stmt.execute();
+			stmt.close();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+		
+	}
+	
+	
+	public void remove(ContatoBean contato) {
+		
+		String sql = "delete from contatos where id=?";
+		
+		try {
+			PreparedStatement stmt = this.conn.prepareStatement(sql);
+			
+			stmt.setInt(1, contato.getId());
+			
+			stmt.execute();
+			stmt.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
 		
 	}
 	
