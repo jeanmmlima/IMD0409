@@ -15,11 +15,20 @@ import org.apache.tomcat.util.http.fileupload.RequestContext;
 import com.aulas.dao.ContatoDAO;
 import com.aulas.model.ContatoBean;
 import com.aulas.utils.ConnectionFactory;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import negocio.Relatorio;
 
 /**
  * Servlet implementation class AgendaController
  */
-@WebServlet(urlPatterns = { "/AgendaController", "/home", "/novocontato", "/selecionacontato", "/editacontato", "/deletar" })
+@WebServlet(urlPatterns = { "/AgendaController", "/home", 
+		"/novocontato", "/selecionacontato", 
+		"/editacontato", "/deletar", "/relatorio" })
 public class AgendaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -52,6 +61,8 @@ public class AgendaController extends HttpServlet {
 			editaContato(request, response);
 		} else if (acao.equals("/deletar")) {
 			deletaContato(request, response);
+		} else if (acao.equals("/relatorio")) {
+			geraRelatorio(request, response);
 		}else {
 			response.sendRedirect("index.html");
 		}
@@ -170,5 +181,18 @@ public class AgendaController extends HttpServlet {
 		response.sendRedirect("home");
 		
 	}
+	
+	//gerar relatório
+	//link <https://github.com/itext/itextpdf/releases/tag/5.5.13.2>
+	protected void geraRelatorio(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		
+		Relatorio relatorio = new Relatorio();
+		relatorio.geraRelatorio(response);
+		
+		
+	}
+	
 
 }
