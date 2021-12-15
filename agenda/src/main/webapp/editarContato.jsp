@@ -1,4 +1,4 @@
-<%@page import="com.aulas.model.ContatoBean"%>
+<%@page import="com.aulas.model.Contato"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,8 +9,10 @@
 </head>
 <body>
 
-<% ContatoBean contato = 
-(ContatoBean) request.getAttribute("contato"); %>
+<%
+Contato contato = 
+(Contato) request.getAttribute("contato");
+%>
 
 <h1>Editar contatao</h1>
 

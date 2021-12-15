@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletResponse;
 
 import com.aulas.dao.ContatoDAO;
-import com.aulas.model.ContatoBean;
+import com.aulas.model.Contato;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -55,7 +55,7 @@ public class Relatorio {
 
 			// popular tabela com dados de contato
 
-			ArrayList<ContatoBean> contatos = new ArrayList<ContatoBean>();
+			ArrayList<Contato> contatos = new ArrayList<Contato>();
 
 			ContatoDAO contatoDAO = new ContatoDAO();
 
@@ -63,7 +63,7 @@ public class Relatorio {
 
 			contatoDAO.fechar();
 
-			for (ContatoBean contato : contatos) {
+			for (Contato contato : contatos) {
 				tabela.addCell(contato.getNome());
 				tabela.addCell(contato.getTelefone());
 				tabela.addCell(contato.getEmail());

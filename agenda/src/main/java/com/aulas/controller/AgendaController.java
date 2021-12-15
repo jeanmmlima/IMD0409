@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.RequestContext;
 
 import com.aulas.dao.ContatoDAO;
-import com.aulas.model.ContatoBean;
+import com.aulas.model.Contato;
 import com.aulas.utils.ConnectionFactory;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
@@ -21,6 +21,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import bean.ContatoBean;
 import negocio.Relatorio;
 
 /**
@@ -75,13 +76,17 @@ public class AgendaController extends HttpServlet {
 			throws ServletException, IOException {
 
 		//response.sendRedirect("agenda.jsp");
-		
+		/*
 		ContatoDAO contatoDAO = new ContatoDAO();
 		
-		ArrayList<ContatoBean> contatos = 
+		ArrayList<Contato> contatos = 
 				contatoDAO.getContatos();
 		
 		contatoDAO.fechar();
+		*/
+		
+		ContatoBean contatoBean = new ContatoBean();
+		ArrayList<Contato> contatos = contatoBean.getContatos();
 		
 		//encaminhar para JSP
 		
@@ -100,7 +105,8 @@ public class AgendaController extends HttpServlet {
 	protected void novoContato(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		ContatoBean contato = new ContatoBean();
+		/*
+		Contato contato = new Contato();
 		
 		//1. recuperando parametros do formulario
 		contato.setNome(request.getParameter("nome"));
@@ -116,6 +122,10 @@ public class AgendaController extends HttpServlet {
 		contatoDAO.fechar();
 
 		response.sendRedirect("home");
+		*/
+		
+		ContatoBean contatoBean = new ContatoBean();
+		contatoBean.novoContato(request, response);
 
 	}
 	
@@ -124,13 +134,20 @@ public class AgendaController extends HttpServlet {
 		
 		int id = Integer.parseInt(request.getParameter("id"));
 		
-		ContatoBean contato = new ContatoBean();
+		/*
+		Contato contato = new Contato();
 		
 		ContatoDAO contatoDAO = new ContatoDAO();
 		
 		contato = contatoDAO.getContato(id);
 		
 		contatoDAO.fechar();
+		*/
+		
+		ContatoBean contatoBean = new ContatoBean();
+		Contato contato = new Contato();
+		contato = contatoBean.selecionaContato(id);
+		
 		
 		System.out.println(contato.getNome());
 		
@@ -144,8 +161,8 @@ public class AgendaController extends HttpServlet {
 	
 	protected void editaContato(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		ContatoBean contato = new ContatoBean();
+		/*
+		Contato contato = new Contato();
 		
 		int id = Integer.parseInt(request.getParameter("id"));
 		contato.setId(id);
@@ -160,13 +177,18 @@ public class AgendaController extends HttpServlet {
 		contatoDAO.fechar();
 		
 		response.sendRedirect("home");
+		*/
+		
+		ContatoBean contatoBean = new ContatoBean();
+		contatoBean.editaContato(request, response);
 		
 	}
 	
 	protected void deletaContato(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		ContatoBean contato = new ContatoBean();
+		/*
+		Contato contato = new Contato();
 		
 		int id = Integer.parseInt(request.getParameter("id"));
 		
@@ -179,6 +201,12 @@ public class AgendaController extends HttpServlet {
 		contatoDAO.fechar();
 		
 		response.sendRedirect("home");
+		*/
+		
+		ContatoBean contatoBean = new ContatoBean();
+		contatoBean.deletaContato(request, response);
+		
+		
 		
 	}
 	

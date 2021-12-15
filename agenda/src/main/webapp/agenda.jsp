@@ -1,6 +1,6 @@
-<%@page import="com.aulas.model.ContatoBean"%>
+<%@page import="com.aulas.model.Contato"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <!-- 
@@ -24,9 +24,10 @@ https://mvnrepository.com/artifact/javax.servlet/jstl/1.2
 <a href="relatorio"><button>Gerar Relatório</button></a>
 
 <%
-ArrayList<ContatoBean> contatos = 
-(ArrayList<ContatoBean>) request.getAttribute("contatos");
+ ArrayList<Contato> contatos = 
+ (ArrayList<Contato>) request.getAttribute("contatos");
 %>
+
 <h3> Tabela via scriptlet </h3>
 
 <table>
@@ -40,8 +41,7 @@ ArrayList<ContatoBean> contatos =
 	</thead>
 	
 	<tbody>
-	
-	<% for(ContatoBean contato : contatos) {%>
+		<% for(Contato contato : contatos) { %>
 		<tr>
 			<td><%=contato.getId() %></td>
 			<td><%=contato.getNome() %></td>

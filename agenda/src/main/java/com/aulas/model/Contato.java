@@ -1,6 +1,6 @@
 package com.aulas.model;
 
-public class ContatoBean {
+public class Contato {
 	
 	private int id;
 	private String nome;
@@ -9,7 +9,7 @@ public class ContatoBean {
 	
 	
 	
-	public ContatoBean(int id, String nome, String telefone, String email) {
+	public Contato(int id, String nome, String telefone, String email) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -19,7 +19,7 @@ public class ContatoBean {
 	
 	
 	
-	public ContatoBean() {
+	public Contato() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
