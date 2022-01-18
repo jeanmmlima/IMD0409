@@ -18,7 +18,7 @@
 	<!-- Parâmetros de execucao -->
 	<build>
 		<!-- Nome do Projeto empacotado -->
-		<finalName>PrimeiroJSFMod</finalName>
+		<finalName>AgendaJSF</finalName>
 
 		<!-- Plugins -->
 		<plugins>

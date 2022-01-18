@@ -14,43 +14,59 @@
 
 <h:body>
 
-<fieldset>
-	<legend>
-		<h1>Lista de Contatos</h1>
-	</legend>
+	<fieldset>
+		<legend>
+			<h1>Lista de Contatos</h1>
+		</legend>
 
-<h:form>
+		<h:form>
 
-	<h:dataTable value="#{contatoBean.getTodos()}" var="item" cellpadding="2" cellspacing="0" border="1">
-	
-		<f:facet name="header">
-			<h:outputText value="Mostrar Contatos"/>
-		</f:facet>
-		
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="ID"/>
-			</f:facet>
-			<h:outputText value="#{item.id}"/>
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="Nome"/>
-			</f:facet>
-			<h:outputText value="#{item.nome}"/>
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="E-mail"/>
-			</f:facet>
-			<h:outputText value="#{item.email}"/>
-		</h:column>
-	
-	</h:dataTable>
-</h:form>
-</fieldset>
+			<h:dataTable value="#{contatoBean.todos}" var="item" cellpadding="2"
+				cellspacing="0" border="1">
+
+				<f:facet name="header">
+					<h:outputText value="Mostrar Contatos" />
+				</f:facet>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="ID" />
+					</f:facet>
+					<h:outputText value="#{item.id}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Nome" />
+					</f:facet>
+					<h:outputText value="#{item.nome}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="E-mail" />
+					</f:facet>
+					<h:outputText value="#{item.email}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Gerenciar" />
+					</f:facet>
+					<h:commandLink action="#{contatoBean.remover(item)}">
+						Excluir
+					</h:commandLink>
+					<h:commandLink action="#{contatoBean.editar(item)}">
+						Editar
+					</h:commandLink>
+				</h:column>
+
+				
+
+			</h:dataTable>
+			<h:commandButton value="Cadastrar Contato" action="#{contatoBean.novo}"/>
+		</h:form>
+	</fieldset>
 </h:body>
 
 </html>

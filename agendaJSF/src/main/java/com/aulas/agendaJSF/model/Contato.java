@@ -2,14 +2,14 @@ package com.aulas.agendaJSF.model;
 
 public class Contato {
 	
-	private int id;
+	private Integer id;
 	private String nome;
 	private String telefone;
 	private String email;
 	
 	
 	
-	public Contato(int id, String nome, String telefone, String email) {
+	public Contato(Integer id, String nome, String telefone, String email) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -32,10 +32,10 @@ public class Contato {
 	}
 
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getNome() {

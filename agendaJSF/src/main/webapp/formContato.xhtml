@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<h:head>
+	<title>Agenda JSF</title>
+</h:head>
+
+<h:body>
+	<fieldset>
+		<legend>
+			<h1>Dados de Contato</h1>
+		</legend>
+
+		<h:form>
+			<h:panelGrid columns="3">
+				<h:outputLabel value="Nome:" for="nome" />
+				<h:inputText id="nome" value="#{contatoBean.contato.nome}" required="true"
+				requiredMessage="Informe o nome!"/>
+				<h:message for="nome" />
+				
+				<h:outputLabel value="Telefone:" for="telefone" />
+				<h:inputText id="telefone" value="#{contatoBean.contato.telefone}" required="true"
+				requiredMessage="Informe o telefone!"/>
+				<h:message for="telefone" />
+				
+				<h:outputLabel value="Email:" for="email" />
+				<h:inputText id="email" value="#{contatoBean.contato.email}" required="true"
+				requiredMessage="Informe o email!"/>
+				<h:message for="email" />
+
+			</h:panelGrid>
+			<h:commandButton value="Gravar" action="#{contatoBean.criarOuAtualizar}" />
+			<h:commandButton value="Cancelar" action="#{contatoBean.listaContato}" />
+		</h:form>
+
+	</fieldset>
+</h:body>
+
+</html>
