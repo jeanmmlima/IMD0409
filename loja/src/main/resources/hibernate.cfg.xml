@@ -37,6 +37,10 @@
 		<mapping class="com.aulas.loja.dominio.Cidade" />
 		<mapping class="com.aulas.loja.dominio.Estado" />
 		<mapping class="com.aulas.loja.dominio.Usuario" />
+		<mapping class="com.aulas.loja.dominio.Cliente" />
+		<mapping class="com.aulas.loja.dominio.Produto" />
+		<mapping class="com.aulas.loja.dominio.Pedido" />
+		<mapping class="com.aulas.loja.dominio.ItensPedido" />
     </session-factory>
 
 </hibernate-configuration>

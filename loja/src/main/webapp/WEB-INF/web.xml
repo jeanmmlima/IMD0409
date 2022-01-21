@@ -21,4 +21,9 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
+	
+	<!--  carregamento e o fechamento ADEQUADO do Hibernate -->
+	<listener>
+		<listener-class>com.aulas.loja.util.HibernateContexto</listener-class>
+	</listener>
 </web-app>
