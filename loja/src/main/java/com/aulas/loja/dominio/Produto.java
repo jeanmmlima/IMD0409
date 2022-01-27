@@ -36,6 +36,11 @@ public class Produto implements Serializable{
 		this.quatidade = quatidade;
 		this.valor = valor;
 	}
+	public Produto(Double quatidade, Double valor) {
+		super();
+		this.quatidade = quatidade;
+		this.valor = valor;
+	}
 	public Produto() {
 		super();
 		// TODO Auto-generated constructor stub

@@ -2,10 +2,15 @@ package com.aulas.loja.beans;
 
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 import com.aulas.loja.dao.EstadoDAO;
 import com.aulas.loja.dominio.Estado;
 import com.aulas.loja.util.LojaException;
 
+@ManagedBean
+@ViewScoped
 public class EstadoMBean {
 	
 	Estado estado = new Estado();
