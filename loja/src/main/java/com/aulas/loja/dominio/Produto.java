@@ -26,19 +26,19 @@ public class Produto implements Serializable{
 	private String descricao;
 	
 	@Column(precision = 10, scale = 2)
-	private Double quatidade;
+	private Double quantidade;
 	
 	@Column(precision = 10, scale = 2)
 	private Double valor;
-	public Produto(String descricao, Double quatidade, Double valor) {
+	public Produto(String descricao, Double quantidade, Double valor) {
 		super();
 		this.descricao = descricao;
-		this.quatidade = quatidade;
+		this.quantidade = quantidade;
 		this.valor = valor;
 	}
-	public Produto(Double quatidade, Double valor) {
+	public Produto(Double quantidade, Double valor) {
 		super();
-		this.quatidade = quatidade;
+		this.quantidade = quantidade;
 		this.valor = valor;
 	}
 	public Produto() {
@@ -57,11 +57,11 @@ public class Produto implements Serializable{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Double getQuatidade() {
-		return quatidade;
+	public Double getQuantidade() {
+		return quantidade;
 	}
-	public void setQuatidade(Double quatidade) {
-		this.quatidade = quatidade;
+	public void setQuantidade(Double quatidade) {
+		this.quantidade = quatidade;
 	}
 	public Double getValor() {
 		return valor;

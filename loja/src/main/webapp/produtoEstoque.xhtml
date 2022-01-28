@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Estoque de Produtos</title>
+	<style type="text/css">
+button.ui-button {
+	margin-right: .5rem;
+}
+</style>
+</h:head>
+
+<h:body>
+
+	<div class="card">
+
+		<h:form id="formLancaProduto">
+			<p:messages id="msgs" />
+			<p:fieldset legend="Produto" id="dadosProduto">
+
+				<h:panelGrid columns="3" cellpadding="5" styleClass="p-mb-3">
+					<p:outputLabel for="descricao" value="Descricao: " />
+					<p:selectOneMenu id="descricao" value="#{produtoMBean.produtoId}">
+						<f:selectItems value="#{produtoMBean.lista}" var="produto"
+							itemValue="#{produto.id}" itemLabel="#{produto.descricao}" />
+						<p:ajax event="change" listener="#{produtoMBean.atualizarProduto}"
+							update="quantidade valor" />
+					</p:selectOneMenu>
+					<p:message for="descricao" id="msgDescricao" />
+
+
+					<p:outputLabel for="quantidade" value="Quantidade: " />
+					<p:inputText id="quantidade"
+						value="#{produtoMBean.produto.quantidade}" required="true"
+						requiredMessage="Informe a quantidade!">
+						<f:convertNumber minFractionDigits="2" />
+						<p:ajax event="blur" update="quantidade msgQuantidade msgs" />
+					</p:inputText>
+					<p:message for="quantidade" id="msgQuantidade" />
+					
+					<p:outputLabel for="valor" value="Valor: " />
+					<p:inputText id="valor"
+						value="#{produtoMBean.produto.valor}" required="true"
+						requiredMessage="Informe o valor!">
+						<f:convertNumber minFractionDigits="2" />
+						<p:ajax event="blur" update="valor msgValor msgs" />
+					</p:inputText>
+					<p:message for="valor" id="msgValor" />
+				</h:panelGrid>
+
+			</p:fieldset>
+			<br />
+			<p:commandButton action="#{produtoMBean.gravar}" value="Lançar"
+			icon="pi pi-plus" update="formEstoqueProdutos" styleClass="ui-button-success"/>
+
+		</h:form>
+		<br />
+
+		<h:form id="formEstoqueProdutos">
+			<div class="card">
+				<p:fieldset legend="Estoque" id="dadosEstoque">
+
+					<p:dataTable value="#{produtoMBean.lista}" var="produto"
+						id="tabelaProduto">
+
+						<p:column headerText="ID">
+							<h:outputText value="#{produto.id}" />
+						</p:column>
+
+						<p:column headerText="Descricao">
+							<h:outputText value="#{produto.descricao}" />
+						</p:column>
+
+						<p:column headerText="Quantidade">
+							<h:outputText value="#{produto.quantidade}">
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Valor Unitário">
+							<h:outputText value="#{produto.valor}">
+								<f:convertNumber pattern="#,##0.00" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Opções">
+							<p:commandButton value="Editar" icon="pi pi-pencil"
+								action="#{produtoMBean.editar(produto)}" update="formLancaProduto" />
+							<p:commandButton value="Excluir" icon="pi pi-times"
+								action="#{produtoMBean.apagar(produto)}"
+								styleClass="ui-button-danger" update="formEstoqueProdutos" />
+						</p:column>
+
+					</p:dataTable>
+
+				</p:fieldset>
+			</div>
+		</h:form>
+
+	</div>
+
+
+
+</h:body>
+
+
+</html>

@@ -9,11 +9,37 @@
 
 <h:head>
 	<title>Lista de Produtos</title>
+	<style type="text/css">
+    button.ui-button {
+        margin-right: .5rem;
+    }
+</style>
 </h:head>
 
 <h:body>
 
 	<div class="card">
+	
+		<h:form>
+			<p:messages id="msgs"/>
+			<p:fieldset legend="Produto" id="dadosProduto">
+			
+				<h:panelGrid columns="3" cellpadding="5" styleClass="p-mb-3">
+					<p:outputLabel value="Descricao: " for="descricao"/>
+					<p:inputText id="descricao" placeholder="Inserir descricao"
+					value="#{produtoMBean.produto.descricao}"
+					required="true" requiredMessage="Informe a descrição do produto!">
+						
+					</p:inputText>
+					<p:message for="descricao" id="msgDescricao"/>
+				
+				</h:panelGrid>
+			
+			</p:fieldset>
+			<br />
+			<p:commandButton action="#{produtoMBean.gravar}" value="Gravar"
+			icon="pi pi-check" update="formTabelaProdutos msgs msgDescricao"/>
+		</h:form>
 
 
 
@@ -37,7 +63,7 @@
 							<p:commandButton value="Editar" icon="pi pi-pencil"
 							action="#{produtoMBean.editar(produto)}"/>
 							<p:commandButton value="Excluir" icon="pi pi-times"
-							action="#{produtoMBean.apagar(produto)}"/>
+							action="#{produtoMBean.apagar(produto)}" styleClass="ui-button-danger"/>
 						</center>
 					</p:column>
 				</p:dataTable>

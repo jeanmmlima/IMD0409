@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import com.aulas.loja.dao.ProdutoDAO;
 import com.aulas.loja.dominio.Produto;
@@ -73,6 +74,11 @@ public class ProdutoMBean implements Serializable{
 			produtoDAO.atualizar(produto);
 		}
 		this.produto = new Produto(0.0,0.0);
+	}
+	
+	public void atualizarProduto(AjaxBehaviorEvent e) throws LojaException {
+		this.produto = produtoDAO.buscarId(produtoId);
+		this.produtoQtd = this.produto.getQuantidade();
 	}
 	
 	

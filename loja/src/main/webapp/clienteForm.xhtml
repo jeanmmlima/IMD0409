@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Lista de Clientes</title>
+	<style type="text/css">
+button.ui-button {
+	margin-right: .5rem;
+}
+</style>
+</h:head>
+
+<h:body>
+
+	<div class="card">
+
+		<h:form id="formCadastroCliente">
+			<p:messages id="msgs"/>
+			<p:fieldset legend="Dados Pessoais" id="dadosCliente">
+			
+				<h:panelGrid columns="3" cellpadding="5" styleClass="p-mb-3">
+					<p:outputLabel value="Nome: " for="nome"/>
+					<p:inputText id="nome" placeholder="Inserir nome"
+					value="#{clienteMBean.cliente.nome}"
+					required="true" requiredMessage="Informe o nome!">
+						<p:ajax event="blur" update="nome msgNome msgs"/>
+					</p:inputText>
+					<p:message for="nome" id="msgNome"/>
+					
+					<p:outputLabel value="CPF: " for="cpf"/>
+					<p:inputText id="cpf" placeholder="Inserir cpf"
+					value="#{clienteMBean.cliente.cpf}"
+					required="true" requiredMessage="Informe o cpf!">
+						<p:ajax event="blur" update="cpf msgCpf msgs"/>
+					</p:inputText>
+					<p:message for="cpf" id="msgCpf"/>
+					
+					<p:outputLabel value="Email: " for="email"/>
+					<p:inputText id="email" placeholder="Inserir email"
+					value="#{clienteMBean.cliente.email}"
+					required="true" requiredMessage="Informe o email!">
+						<p:ajax event="blur" update="email msgEmail msgs"/>
+					</p:inputText>
+					<p:message for="email" id="msgEmail"/>
+				
+				</h:panelGrid>
+			
+			</p:fieldset>
+			<p:fieldset legend="Endereço" id="dadosEndereco">
+			
+				<h:panelGrid columns="6" cellpadding="5" styleClass="p-mb-3">
+					<p:outputLabel value="Rua: " for="rua"/>
+					<p:inputText id="rua" placeholder="Inserir rua"
+					value="#{clienteMBean.rua}"
+					required="true" requiredMessage="Informe a rua!">
+						<p:ajax event="blur" update="rua msgRua msgs"/>
+					</p:inputText>
+					<p:message for="rua" id="msgRua"/>
+					
+					<p:outputLabel value="CEP: " for="cep"/>
+					<p:inputText id="cep" placeholder="Inserir cep"
+					value="#{clienteMBean.cep}"
+					required="true" requiredMessage="Informe o cep!">
+						<p:ajax event="blur" update="cep msgCep msgs"/>
+					</p:inputText>
+					<p:message for="cep" id="msgCep"/>
+					
+				</h:panelGrid>
+				
+				<h:panelGrid columns="6" cellpadding="5" styleClass="p-mb-3">
+					
+					<p:outputLabel for="cidade" value="Cidade: " />
+					<p:selectOneMenu id="cidade" value="#{clienteMBean.cidadeId}">
+						<f:selectItems value="#{cidadeMBean.lista}" var="cidade"
+							itemValue="#{cidade.id}" itemLabel="#{cidade.nome}" />
+						<p:ajax event="change" 
+							update="cidade msgCidade" />
+					</p:selectOneMenu>
+					<p:message for="cidade" id="msgCidade" />
+					
+					<p:outputLabel for="estado" value="Estado: " />
+					<p:selectOneMenu id="estado" value="#{clienteMBean.estadoId}">
+						<f:selectItems value="#{estadoMBean.lista}" var="estado"
+							itemValue="#{estado.id}" itemLabel="#{estado.nome}" />
+						<p:ajax event="change" 
+							update="estado msgEstado" />
+					</p:selectOneMenu>
+					<p:message for="cidade" id="msgEstado" />
+					
+				</h:panelGrid>
+			
+			</p:fieldset>
+			<br />
+			<p:commandButton action="#{clienteMBean.gravar}" value="Gravar"
+			icon="pi pi-plus" update="formTabelaClientes msgs formCadastroCliente" styleClass="ui-button-success"/>
+
+		</h:form>
+
+		<h:form id="formTabelaClientes">
+
+			<p:dataTable value="#{clienteMBean.lista}" var="cliente"
+				id="tabelaCliente">
+				<p:column headerText="ID">
+					<h:outputText value="#{cliente.id}" />
+				</p:column>
+
+
+				<p:column headerText="Nome">
+					<h:outputText value="#{cliente.nome}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:commandButton value="Editar" icon="pi pi-pencil"
+						action="#{clienteMBean.editar(cliente)}" update="formCadastroCliente"/>
+					<p:commandButton value="Excluir" icon="pi pi-times"
+						action="#{clienteMBean.apagar(cliente)}"
+						styleClass="ui-button-danger" update="formTabelaClientes" />
+
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+	</div>
+
+</h:body>
+
+
+</html>
