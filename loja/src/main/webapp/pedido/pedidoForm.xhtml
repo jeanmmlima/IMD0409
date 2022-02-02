@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:metadata>
+		<f:viewParam name="id" value="#{pedidoMBean.pedidoIdNovo}" />
+		<f:viewAction action="#{pedidoMBean.carregar}" />
+	</f:metadata>
+</h:head>
+
+<h:body>
+	<div class="card">
+		<h:form id="formuluario">
+			<p:messages id="mensagens" />
+
+			<p:fieldset legend="Pedido" id="dadosPedido">
+				<h:panelGrid columns="4" cellpadding="5" styleClass="p-mb-3">
+
+					<p:outputLabel for="dataPedido" value="Data: " />
+					<h:outputText id="dataPedido" value="#{pedidoMBean.data}">
+						<f:convertDateTime dateStyle="default" pattern="dd/MM/yyyy" />
+					</h:outputText>
+
+				</h:panelGrid>
+
+				<p:fieldset legend="Cliente" id="dadosCliente">
+					<h:panelGrid columns="4" cellpadding="5" styleClass="p-mb-3">
+						<p:outputLabel for="nomeCliente" value="Nome: " />
+						<p:selectOneMenu id="nomeCliente" value="#{pedidoMBean.clienteId}">
+							<f:selectItems value="#{pedidoMBean.listaClientes}" var="cliente"
+								itemValue="#{cliente.id}" itemLabel="#{cliente.nome}" />
+							<p:ajax event="change" update="cpf"
+								listener="#{pedidoMBean.atualizaCliente}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel id="cpf" value="CPF.: #{pedidoMBean.cliente.cpf}" />
+
+					</h:panelGrid>
+				</p:fieldset>
+
+				<p:fieldset legend="Dados Produto" id="dadosProduto">
+					<h:panelGrid columns="9" cellpadding="5" styleClass="p-mb-3">
+
+						<p:outputLabel for="descricao" value="Descricao: " />
+						<p:selectOneMenu id="descricao" value="#{pedidoMBean.produtoId}">
+							<f:selectItems value="#{pedidoMBean.listaProdutos}" var="produto"
+								itemValue="#{produto.id}" itemLabel="#{produto.descricao}" />
+							<p:ajax event="change" update="valor"
+								listener="#{pedidoMBean.atualizaProduto}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="qtd" value="Quantidade: " />
+						<p:inputText id="qtd" value="#{pedidoMBean.produtoQtd}">
+							<f:convertNumber minFractionDigits="2" />
+						</p:inputText>
+						
+						<p:outputLabel id="valor" value="#{pedidoMBean.produto.valor}">
+							<f:convertNumber pattern="R$ #,##0.00"/>
+						</p:outputLabel>
+						
+						<p:commandButton action="#{pedidoMBean.adicionarProdutosNaLista}"
+						styleClass="ui-button-success" icon="pi pi-plus" value="Adicionar"
+						update="tabelaItems valorPedido qtd mensagens">
+						
+						</p:commandButton>
+						
+
+					</h:panelGrid>
+				</p:fieldset>
+				
+				<p:fieldset legend="Itens do Pedido">
+					<p:dataTable value="#{pedidoMBean.listaItens}" var="itens" id="tabelaItems">
+						
+						<p:column headerText="ID">
+							<h:outputText value="#{itens.produto.id}"/>
+						</p:column>
+						
+						<p:column headerText="Descricao">
+							<h:outputText value="#{itens.produto.descricao}"/>
+						</p:column>
+						
+						<p:column headerText="Qtd">
+							<h:outputText value="#{itens.quantidade}">
+								<f:convertNumber pattern="#,##0.00"/>
+							</h:outputText>
+						</p:column>
+						
+						<p:column headerText="Valor Unitário">
+							<h:outputText value="#{itens.valor}">
+								<f:convertNumber pattern="R$ #,##0.00"/>
+							</h:outputText>
+						</p:column>
+						
+						<p:column headerText="Valor Produto">
+							<h:outputText value="#{itens.valor * itens.quantidade}">
+								<f:convertNumber pattern="R$ #,##0.00"/>
+							</h:outputText>
+						</p:column>
+						
+						<p:column headerText="X">
+							<p:commandButton action="#{pedidoMBean.removerProdutosDaLista(itens)}"
+							styleClass="ui-button-danger" icon="pi pi-times" value="Remover"
+							update="tabelaItems"/>
+						</p:column>
+						
+					</p:dataTable>
+				</p:fieldset>
+				
+				<p:fieldset legend="Total">
+					<h:panelGrid columns="2" cellpadding="5" styleClass="p-mb-3">
+					<p:outputLabel value="Valor total" />
+					<p:outputLabel id="valorPedido" value="#{pedidoMBean.valorTotal}">
+						<f:convertNumber pattern="R$ #,##0.00"/>
+					</p:outputLabel>
+					
+					</h:panelGrid>
+				</p:fieldset>
+
+
+			</p:fieldset>
+			
+			<p:commandButton value="Emitir Pedido" action="#{pedidoMBean.gravar}" />
+			<p:commandButton value="Cancelar"></p:commandButton>
+		</h:form>
+	</div>
+</h:body>
+
+
+</html>
