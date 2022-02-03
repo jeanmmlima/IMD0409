@@ -43,7 +43,7 @@ public class Pedido implements Serializable{
 	private Double valorTotal;
 	
 	//1 PEDIDO --> MUITOS itens (produtos): 1 -> N
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pedido_id")
 	private Set<ItensPedido> itensPedido;
 

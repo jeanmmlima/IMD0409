@@ -290,5 +290,6 @@ public class PedidoMBean implements Serializable {
 	public void atualizaProduto(AjaxBehaviorEvent e) throws LojaException {
 		produto = produtoDAO.buscarId(produtoId);
 	}
+	
 
 }

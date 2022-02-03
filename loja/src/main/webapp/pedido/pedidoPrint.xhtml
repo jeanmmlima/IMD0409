@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<style type="text/css">
+button.ui-button {
+	margin-right: .5rem;
+}
+</style>
+
+
+	<title>Detalhes do Pedido</title>
+	<f:metadata>
+		<f:viewParam name="id" value="#{pedidoMBean.pedidoIdNovo}" />
+		<f:viewAction action="#{pedidoMBean.carregar}"
+			if="#{param['id'] != null}" />
+	</f:metadata>
+
+
+</h:head>
+<h:body>
+
+	<div class="card">
+		<h:form id="formulario">
+
+			<p:fieldset legend="Pedido" id="dadosPedido">
+
+				<h:panelGrid columns="4" cellpadding="5" styleClass="p-mb-3">
+
+					<p:outputLabel for="codigoPedido" value="Número:" />
+					<h:outputText id="codigoPedido" value="#{pedidoMBean.pedidoIdNovo}" />
+
+					<p:outputLabel for="dataPedido" value="Data:" />
+					<h:outputText id="dataPedido" value="#{pedidoMBean.data}">
+						<f:convertDateTime dateStyle="default" pattern="dd/MM/yyyy" />
+					</h:outputText>
+
+				</h:panelGrid>
+
+				<p:fieldset legend="Cliente" id="dadosCliente">
+
+					<h:panelGrid columns="4" cellpadding="5" styleClass="p-mb-3">
+
+						<p:outputLabel value="Nome: #{pedidoMBean.cliente.nome}" />
+						<p:outputLabel value="CPF.: #{pedidoMBean.cliente.cpf}" />
+
+					</h:panelGrid>
+
+				</p:fieldset>
+
+
+				<p:fieldset legend="Itens do Pedido">
+
+					<p:dataTable value="#{pedidoMBean.listaItens}" var="itens"
+						id="tabelaItems">
+
+						<p:column headerText="ID">
+							<h:outputText value="#{itens.produto.id}" />
+						</p:column>
+
+						<p:column headerText="Descrição">
+							<h:outputText value="#{itens.produto.descricao}" />
+						</p:column>
+
+						<p:column headerText="Qtd">
+							<h:outputText value="#{itens.quantidade}">
+								<f:convertNumber pattern="#,##0.00" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Valor Unitário">
+							<h:outputText value="#{itens.valor}">
+								<f:convertNumber pattern="R$ #,##0.00" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Valor Total">
+							<h:outputText value="#{itens.valor * itens.quantidade}">
+								<f:convertNumber pattern="R$ #,##0.00" />
+							</h:outputText>
+						</p:column>
+
+
+					</p:dataTable>
+
+				</p:fieldset>
+
+				<p:fieldset legend="Total">
+					<h:panelGrid columns="2" cellpadding="5" styleClass="p-mb-3">
+						<p:outputLabel value="Valor do Pedido" />
+						<p:outputLabel id="valorPedido" value="#{pedidoMBean.valorTotal}">
+							<f:convertNumber pattern="R$ #,##0.00" />
+						</p:outputLabel>
+					</h:panelGrid>
+				</p:fieldset>
+
+
+			</p:fieldset>
+
+			<p:commandButton value="Imprimir pedido" onclick="window.print()" />
+			<p:commandButton value="Voltar" action="/home?faces-redirect=true"
+				immediate="true" />
+
+		</h:form>
+		<br />
+
+	</div>
+</h:body>
+
+</html>
