@@ -259,37 +259,49 @@ public class PedidoMBean implements Serializable {
 			produtoDAO.atualizar(produtoNovo);
 		}
 	}
-	
+
 	public void carregar() throws LojaException {
-		
-		if(this.pedidoIdNovo != null) {
+
+		if (this.pedidoIdNovo != null) {
 			this.pedido = pedidoDAO.buscarId(this.pedidoIdNovo);
-			
+
 			this.data = this.pedido.getData();
+			
 			this.clienteId = this.pedido.getCliente().getId();
 			this.cliente = clienteDAO.buscarId(clienteId);
+			
 			this.listaItens = new ArrayList<>(this.pedido.getItensPedido());
+			
 			this.valorTotal = this.pedido.getValorTotal();
 		} else {
 			pedido = new Pedido();
 			cliente = new Cliente();
 			produto = new Produto();
 			itensPedido = new ItensPedido();
-			
+
 			this.data = new Date();
 			this.valorTotal = 0.0;
 			this.listaItens = new ArrayList<>();
 		}
-		
+
 	}
-	
+
 	public void atualizaCliente(AjaxBehaviorEvent e) throws LojaException {
 		cliente = clienteDAO.buscarId(clienteId);
 	}
-	
+
 	public void atualizaProduto(AjaxBehaviorEvent e) throws LojaException {
 		produto = produtoDAO.buscarId(produtoId);
 	}
-	
+
+	public String editar(Pedido pedido) {
+
+		return "/pedido/pedidoForm?faces-redirect=true&id=" + pedido.getId();
+	}
+
+	public String imprimir(Pedido pedido) {
+
+		return "/pedido/pedidoPrint?faces-redirect=true&id=" + pedido.getId();
+	}
 
 }
